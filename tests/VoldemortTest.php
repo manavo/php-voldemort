@@ -124,4 +124,16 @@ EOQ;
 		$this->assertTrue($voldemort->bootstrapMetadata($boostrapUrls, 'test', true));
 	}
 
+	public function testExceptionThrownIfErrorInRequest() {
+		$this->setExpectedException('\Voldemort\Exception', 'Error in request', 1);
+
+		$cluster = $this->getMockBuilder('\Voldemort\Cluster')->setMethods(array('makeRequest'))->disableOriginalConstructor()->getMock();
+		$cluster->expects($this->once())->method('makeRequest')->will($this->returnValue((new \Voldemort\PutResponse())->setError((new \Voldemort\Error())->setErrorCode(1)->setErrorMessage('Error in request'))));
+
+		$voldemort = new \Voldemort(null, 'test');
+		$voldemort->setCluster($cluster);
+
+		$voldemort->get('testing-key');
+	}
+
 }

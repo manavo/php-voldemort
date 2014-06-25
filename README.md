@@ -12,12 +12,17 @@ The library can be included using composer. Add the following lines to your proj
 
     {
         "repositories": [
+			{
+				"type": "vcs",
+				"url": "https://github.com/drslump/Protobuf-PHP"
+			},
             {
                 "type": "vcs",
                 "url": "https://github.com/manavo/php-voldemort"
             }
         ],
         "require": {
+			"drslump/Protobuf-PHP": "*@dev",
             "manavo/php-voldemort": "*@dev"
         }
     }

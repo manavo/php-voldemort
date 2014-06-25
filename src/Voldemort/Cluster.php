@@ -26,8 +26,20 @@ class Cluster {
 		}
 	}
 
+	public function getCurrentNode() {
+		if (!$this->socket || !$this->currentNode) {
+			/**
+			 * Forces to connect, so that we have a current node
+			 */
+			$this->getSocket();
+		}
+
+		return $this->currentNode;
+	}
+
 	/**
 	 * @param array $entries
+	 * @throws Exception
 	 * @return bool
 	 */
 	private function incrementExistingEntry($entries) {
@@ -35,7 +47,7 @@ class Cluster {
 		 * @var ClockEntry $entry
 		 */
 		foreach ($entries as $entry) {
-			if ($entry->getNodeId() === $this->currentNode->getId()) {
+			if ($entry->getNodeId() === $this->getCurrentNode()->getId()) {
 				$entry->setVersion($entry->getVersion()+1);
 				return true;
 			}
@@ -47,7 +59,7 @@ class Cluster {
 	private function getNewEntry() {
 		$clockEntry = new ClockEntry();
 		$clockEntry->setVersion(1);
-		$clockEntry->setNodeId($this->currentNode->getId());
+		$clockEntry->setNodeId($this->getCurrentNode()->getId());
 		return $clockEntry;
 	}
 

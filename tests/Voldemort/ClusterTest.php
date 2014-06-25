@@ -115,4 +115,76 @@ EOQ;
 		$this->assertEquals(3, count($cluster->getNodes()));
 	}
 
+	public function testIncrementingVersionOfExistingEntry() {
+		$entry = new \Voldemort\ClockEntry();
+		$entry->setNodeId(1);
+		$entry->setVersion(3);
+
+		$vectorClock = new \Voldemort\VectorClock();
+		$vectorClock->setEntries($entry, 0);
+
+		$version = new \Voldemort\Versioned();
+		$version->setVersion($vectorClock);
+		$version->setValue('value');
+
+
+
+		$connection = $this->getMockBuilder('\Voldemort\Connection')->setMethods(array('make', 'makeRequest'))->disableOriginalConstructor()->getMock();
+		$connection->expects($this->once())->method('make')->will($this->returnValue(true));
+
+		$cluster = new \Voldemort\Cluster($connection);
+		$cluster->addNode(new \Voldemort\Node(1, 'localhost', '6666'));
+
+		$putRequest = (new \Voldemort\PutRequest())->setKey('test')->setVersioned($version);
+
+		$cluster->makeRequest('test', $putRequest, \Voldemort\RequestType::PUT, false);
+
+		$this->assertEquals(4, $putRequest->getVersioned()->getVersion()->getEntries(0)->getVersion());
+	}
+
+	public function testAddingVersionToExistingEntries() {
+		$entry = new \Voldemort\ClockEntry();
+		$entry->setNodeId(12);
+		$entry->setVersion(3);
+
+		$vectorClock = new \Voldemort\VectorClock();
+		$vectorClock->setEntries($entry, 0);
+
+		$version = new \Voldemort\Versioned();
+		$version->setVersion($vectorClock);
+		$version->setValue('value');
+
+
+
+		$connection = $this->getMockBuilder('\Voldemort\Connection')->setMethods(array('make', 'makeRequest'))->disableOriginalConstructor()->getMock();
+		$connection->expects($this->once())->method('make')->will($this->returnValue(true));
+
+		$cluster = new \Voldemort\Cluster($connection);
+		$cluster->addNode(new \Voldemort\Node(1, 'localhost', '6666'));
+
+		$putRequest = (new \Voldemort\PutRequest())->setKey('test')->setVersioned($version);
+
+		$cluster->makeRequest('test', $putRequest, \Voldemort\RequestType::PUT, false);
+
+		$this->assertEquals(1, $putRequest->getVersioned()->getVersion()->getEntries(1)->getVersion());
+	}
+
+	public function testAddingVersionToNonExistentEntries() {
+		$version = new \Voldemort\Versioned();
+		$version->setValue('value');
+
+
+		$connection = $this->getMockBuilder('\Voldemort\Connection')->setMethods(array('make', 'makeRequest'))->disableOriginalConstructor()->getMock();
+		$connection->expects($this->once())->method('make')->will($this->returnValue(true));
+
+		$cluster = new \Voldemort\Cluster($connection);
+		$cluster->addNode(new \Voldemort\Node(1, 'localhost', '6666'));
+
+		$putRequest = (new \Voldemort\PutRequest())->setKey('test')->setVersioned($version);
+
+		$cluster->makeRequest('test', $putRequest, \Voldemort\RequestType::PUT, false);
+
+		$this->assertEquals(1, $putRequest->getVersioned()->getVersion()->getEntries(0)->getVersion());
+	}
+
 }

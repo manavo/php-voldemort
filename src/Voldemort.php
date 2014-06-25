@@ -38,7 +38,13 @@ class Voldemort {
 			throw new \Voldemort\Exception('Cluster not set up');
 		}
 
-		return $this->cluster->makeRequest($this->storeName, $request, $type, $this->shouldRoute);
+		$response = $this->cluster->makeRequest($this->storeName, $request, $type, $this->shouldRoute);
+
+		if ($response->hasError()) {
+			throw new \Voldemort\Exception($response->getError()->getErrorMessage(), $response->getError()->getErrorCode());
+		}
+
+		return $response;
 	}
 
 	/**

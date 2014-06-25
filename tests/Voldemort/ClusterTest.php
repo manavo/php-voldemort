@@ -15,7 +15,7 @@ class ClusterTest extends VoldemortTestCase {
 
 		$cluster = new \Voldemort\Cluster($connection);
 
-		$cluster->addNode(new \Voldemort\Node('localhost', '6666'));
+		$cluster->addNode(new \Voldemort\Node(1, 'localhost', '6666'));
 
 		for ($i=0; $i<$requestCount; $i++) {
 			$cluster->makeRequest('test', new \Voldemort\GetRequest(), \Voldemort\RequestType::GET, false);
@@ -39,7 +39,7 @@ class ClusterTest extends VoldemortTestCase {
 		$connection->expects($this->once())->method('make')->will($this->throwException(new Exception()));
 
 		$cluster = new \Voldemort\Cluster($connection);
-		$cluster->addNode(new \Voldemort\Node('localhost', '6666'));
+		$cluster->addNode(new \Voldemort\Node(1, 'localhost', '6666'));
 
 		$cluster->makeRequest('test', new \Voldemort\GetRequest(), \Voldemort\RequestType::GET, false);
 	}

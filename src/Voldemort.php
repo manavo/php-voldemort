@@ -64,9 +64,13 @@ class Voldemort {
 		}
 	}
 
-	public function put($key, $value, $version = null) {
-		if ($version === null) {
-			$version = $this->getNextVersion($key);
+	public function put($key, $value) {
+		$response = $this->_get($key);
+
+		if (count($response->getVersionedList()) > 0) {
+			$version = $response->getVersioned(0);
+		} else {
+			$version = new \Voldemort\Versioned();
 		}
 
 		$version->setValue($value);
@@ -79,30 +83,6 @@ class Voldemort {
 
 		return $response;
 	}
-
-	private function getNextVersion($key) {
-		$response = $this->_get($key);
-
-		if ($response && count($response->getVersionedList()) > 0) {
-			$version = $response->getVersioned(0);
-
-			$vectorClock = $version->getVersion();
-
-			$entry = $version->getVersion()->getEntries(0);
-			$entry->setVersion($entry->getVersion()+1);
-		} else {
-			$vectorClock = new \Voldemort\VectorClock();
-
-			$version = new \Voldemort\Versioned();
-			$version->setVersion($vectorClock);
-		}
-
-		$timestamp = microtime(true)*1000;
-		$vectorClock->setTimestamp($timestamp);
-
-		return $version;
-	}
-
 
 	public function bootstrapMetadata($bootstrapUrls, $storeName, $validateStore) {
 		shuffle($bootstrapUrls);
@@ -117,7 +97,7 @@ class Voldemort {
 				throw new \Voldemort\Exception('Invalid bootstrap URL, should be an associative array with keys of "host" and "port"');
 			}
 
-            try {
+			try {
 				$socket = $this->connection->make($url['host'], $url['port']);
 
 				$clusterResponse = $this->connection->getFromStore($socket, 'metadata', 'cluster.xml', false);

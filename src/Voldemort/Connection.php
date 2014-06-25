@@ -58,7 +58,7 @@ class Connection {
 	 * @param int $type
 	 * @param boolean $shouldRoute
 	 * @throws Exception
-	 * @return \DrSlump\Protobuf\Message
+	 * @return \Voldemort\GetResponse|\Voldemort\PutResponse
 	 */
 	public function makeRequest($socket, $storeName, $message, $type, $shouldRoute) {
 		$request = new VoldemortRequest();

@@ -1,5 +1,7 @@
 # PHP library for Voldemort
 
+Protocol buffer bindings for [Voldemort Open Source release 1.6.0](https://github.com/voldemort/voldemort/releases/tag/release-1.6.0-cutoff).
+
 ## Voldemort
 
 You can find project Voldemort here: https://github.com/voldemort/voldemort

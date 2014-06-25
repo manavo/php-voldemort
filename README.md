@@ -1,8 +1,12 @@
 # PHP library for Voldemort
 
+## Voldemort
+
+You can find project Voldemort here: https://github.com/voldemort/voldemort
+
 ## Installation
 
-This set of libraries can be included using composer. Add the following lines to your project's composer.json:
+The library can be included using composer. Add the following lines to your project's composer.json:
 
     {
         "repositories": [
@@ -18,4 +22,4 @@ This set of libraries can be included using composer. Add the following lines to
 
 ## Tests ##
 
-To run the test suite, run composer (`php composer.phar install --dev`) and then run PHPUnit (`vendor/bin/phpunit`) from the project root.
+To run the test suite, run composer (`php composer.phar install`) and then run PHPUnit (`vendor/bin/phpunit`) from the project root.

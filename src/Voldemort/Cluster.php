@@ -172,6 +172,8 @@ class Cluster {
 		foreach ($clusterXml->server as $server) {
 			$this->addNode(Node::fromXml($server));
 		}
+
+		shuffle($this->nodes);
 	}
 
 }

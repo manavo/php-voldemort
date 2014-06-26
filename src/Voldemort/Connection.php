@@ -40,7 +40,7 @@ class Connection {
 	 * @param string $storeName
 	 * @param string $key
 	 * @param boolean $shouldRoute
-	 * @return \Voldemort\GetResponse
+	 * @return GetResponse
 	 */
 	public function getFromStore($socket, $storeName, $key, $shouldRoute) {
 		$getRequest = new GetRequest();
@@ -58,7 +58,7 @@ class Connection {
 	 * @param int $type
 	 * @param boolean $shouldRoute
 	 * @throws Exception
-	 * @return \Voldemort\GetResponse|\Voldemort\PutResponse
+	 * @return GetResponse|PutResponse
 	 */
 	public function makeRequest($socket, $storeName, $message, $type, $shouldRoute) {
 		$request = new VoldemortRequest();
@@ -68,10 +68,10 @@ class Connection {
 		$request->setType($type);
 		if ($type === RequestType::GET) {
 			$request->setGet($message);
-			$response = new \Voldemort\GetResponse();
+			$response = new GetResponse();
 		} else if ($type === RequestType::PUT) {
 			$request->setPut($message);
-			$response = new \Voldemort\PutResponse();
+			$response = new PutResponse();
 		} else {
 			throw new Exception('Unsupported type '.$type);
 		}

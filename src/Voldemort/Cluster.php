@@ -14,7 +14,7 @@ class Cluster {
 	private $currentNode;
 
 	/**
-	 * @param \Voldemort\Connection $connection
+	 * @param Connection $connection
 	 * @param $clusterResponse
 	 */
 	function __construct($connection, $clusterResponse = null)

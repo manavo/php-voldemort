@@ -1,5 +1,7 @@
 # PHP library for Voldemort
 
+[![Build Status](https://travis-ci.org/manavo/php-voldemort.svg?branch=master)](https://travis-ci.org/manavo/php-voldemort)
+
 Protocol buffer bindings for [Voldemort Open Source release 1.6.0](https://github.com/voldemort/voldemort/releases/tag/release-1.6.0-cutoff).
 
 ## Voldemort

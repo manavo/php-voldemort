@@ -9,6 +9,11 @@ class Node
     private $host;
     private $socketPort;
 
+    /**
+     * @param int $id
+     * @param string $host
+     * @param int $socketPort
+     */
     function __construct($id, $host, $socketPort)
     {
         $this->id = $id;
@@ -16,11 +21,15 @@ class Node
         $this->socketPort = $socketPort;
     }
 
+    /**
+     * @param $serverXml
+     * @return static
+     */
     public static function fromXml($serverXml)
     {
         $id = (int)$serverXml->id;
         $host = (string)$serverXml->host;
-        $socketPort = (string)$serverXml->{'socket-port'};
+        $socketPort = (int)$serverXml->{'socket-port'};
 
         return new static($id, $host, $socketPort);
     }
@@ -42,7 +51,7 @@ class Node
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getSocketPort()
     {

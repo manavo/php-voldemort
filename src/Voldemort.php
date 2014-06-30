@@ -34,6 +34,12 @@ class Voldemort
         $this->storeName = $storeName;
     }
 
+    /**
+     * @param \Voldemort\GetRequest|\Voldemort\PutRequest $request
+     * @param int $type
+     * @return \Voldemort\GetResponse|\Voldemort\PutResponse
+     * @throws \Voldemort\Exception
+     */
     private function makeRequest($request, $type)
     {
         if (!$this->cluster) {
@@ -43,15 +49,16 @@ class Voldemort
         $response = $this->cluster->makeRequest($this->storeName, $request, $type, $this->shouldRoute);
 
         if ($response->hasError()) {
-            throw new \Voldemort\Exception($response->getError()->getErrorMessage(), $response->getError(
-            )->getErrorCode());
+            $error = $response->getError();
+
+            throw new \Voldemort\Exception($error->getErrorMessage(), $error->getErrorCode());
         }
 
         return $response;
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return \Voldemort\GetResponse
      */
     private function _get($key)
@@ -64,6 +71,10 @@ class Voldemort
         return $response;
     }
 
+    /**
+     * @param string $key
+     * @return null|string
+     */
     public function get($key)
     {
         $response = $this->_get($key);
@@ -75,6 +86,11 @@ class Voldemort
         }
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return \Voldemort\GetResponse|\Voldemort\PutResponse
+     */
     public function put($key, $value)
     {
         $response = $this->_get($key);
@@ -96,6 +112,16 @@ class Voldemort
         return $response;
     }
 
+    /**
+     * Bootstrap cluster metadata from a list of URLs of nodes in the cluster.
+     * The URLs are associative arrays, with keys of "host" and "port".
+     *
+     * @param array $bootstrapUrls
+     * @param string $storeName
+     * @param boolean $validateStore
+     * @return bool
+     * @throws \Voldemort\Exception
+     */
     public function bootstrapMetadata($bootstrapUrls, $storeName, $validateStore)
     {
         shuffle($bootstrapUrls);
@@ -132,19 +158,28 @@ class Voldemort
                 /**
                  * Catch and log the Exception. We want to keep looping through the other bootstrap URLs
                  */
-                error_log(
-                    'Metadata bootstrap from ' . $url['host'] . ':' . $url['port'] . " failed: " . $e->getMessage(
-                    ) . PHP_EOL . $e->getTraceAsString()
-                );
+                $error = 'Metadata bootstrap from ' . $url['host'] . ':' . $url['port'] . " failed: ";
+                $error .= $e->getMessage() . PHP_EOL . $e->getTraceAsString();
+
+                error_log($error);
             }
 
         }
 
         $this->closeConnection($socket);
 
+        /**
+         * We could not successfully bootstrap off any node
+         */
         throw new \Voldemort\Exception('All bootstrap attempts failed');
     }
 
+    /**
+     * Setter for shouldRoute. If we don't validate the store in the bootstrapMetadata method,
+     * we might need to set this manually.
+     *
+     * @param bool $shouldRoute
+     */
     public function setShouldRoute($shouldRoute)
     {
         $this->shouldRoute = $shouldRoute;
@@ -160,6 +195,9 @@ class Voldemort
         }
     }
 
+    /**
+     * @param \Voldemort\Cluster $cluster
+     */
     public function setCluster($cluster)
     {
         $this->cluster = $cluster;

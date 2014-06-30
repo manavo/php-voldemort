@@ -27,6 +27,9 @@ class Cluster
         }
     }
 
+    /**
+     * @return Node
+     */
     public function getCurrentNode()
     {
         if (!$this->socket || !$this->currentNode) {
@@ -59,6 +62,9 @@ class Cluster
         return false;
     }
 
+    /**
+     * @return ClockEntry
+     */
     private function getNewEntry()
     {
         $clockEntry = new ClockEntry();
@@ -116,6 +122,10 @@ class Cluster
         return $this->connection->makeRequest($this->getSocket(), $storeName, $message, $type, $shouldRoute);
     }
 
+    /**
+     * @return \Socket\Raw\Socket
+     * @throws Exception
+     */
     private function getSocket()
     {
         if ($this->socket) {
@@ -146,11 +156,17 @@ class Cluster
         throw new Exception('Could not connect to any of the ' . count($this->nodes) . ' nodes');
     }
 
+    /**
+     * @param Node $node
+     */
     public function addNode($node)
     {
         $this->nodes[] = $node;
     }
 
+    /**
+     * @return array
+     */
     public function getNodes()
     {
         return $this->nodes;

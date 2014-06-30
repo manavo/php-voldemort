@@ -5,15 +5,21 @@ namespace Voldemort;
 class Store
 {
 
-    private $xml;
     private $routing;
 
+    /**
+     * @param \SimpleXMLElement $xml
+     */
     function __construct($xml)
     {
-        $this->xml = $xml;
         $this->routing = (string)$xml->routing;
     }
 
+    /**
+     * If the server should handle routing
+     *
+     * @return bool
+     */
     public function shouldRoute()
     {
         return ($this->routing !== 'client');
@@ -21,7 +27,7 @@ class Store
 
     /**
      * @param GetResponse $response
-     * @param $storeName
+     * @param string $storeName
      * @throws Exception
      * @return Store
      */

@@ -17,6 +17,12 @@ class Connection
         $this->socketFactory = $socketFactory;
     }
 
+    /**
+     * @param string $host
+     * @param int $port
+     * @return \Socket\Raw\Socket
+     * @throws Exception
+     */
     public function make($host, $port)
     {
         $address = 'tcp://' . $host . ':' . $port;

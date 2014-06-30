@@ -1,12 +1,14 @@
 <?php
 
-class ConnectionTest extends VoldemortTestCase {
+class ConnectionTest extends PHPUnit_Framework_TestCase {
 
 	public function testMakeThrowsExceptionIfResponseNotOk() {
 		$this->setExpectedException('\Voldemort\Exception');
 
-		$mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(array('read', 'write', 'close'))->disableOriginalConstructor()->getMock();
-		$mockSocket->expects($this->once())->method('write')->with('pb0');
+        $mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(
+            array('read', 'write', 'close')
+        )->disableOriginalConstructor()->getMock();
+        $mockSocket->expects($this->once())->method('write')->with('pb0');
 		$mockSocket->expects($this->once())->method('read')->will($this->returnValue('no'));
 		$mockSocket->expects($this->once())->method('close');
 

@@ -5,2331 +5,2514 @@
 
 namespace Voldemort {
 
-  class RequestType extends \DrSlump\Protobuf\Enum {
-    const GET = 0;
-    const GET_ALL = 1;
-    const PUT = 2;
-    const DELETE = 3;
-    const GET_VERSION = 4;
-  }
+    class RequestType extends \DrSlump\Protobuf\Enum
+    {
+        const GET = 0;
+        const GET_ALL = 1;
+        const PUT = 2;
+        const DELETE = 3;
+        const GET_VERSION = 4;
+    }
 }
 namespace Voldemort {
 
-  class ClockEntry extends \DrSlump\Protobuf\Message {
-
-    /**  @var int */
-    public $node_id = null;
-    
-    /**  @var int */
-    public $version = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class ClockEntry extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.ClockEntry');
 
-      // REQUIRED INT32 node_id = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "node_id";
-      $f->type      = \DrSlump\Protobuf::TYPE_INT32;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var int */
+        public $node_id = null;
 
-      // REQUIRED INT64 version = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "version";
-      $f->type      = \DrSlump\Protobuf::TYPE_INT64;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var int */
+        public $version = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <node_id> has a value
-     *
-     * @return boolean
-     */
-    public function hasNodeId(){
-      return $this->_has(1);
-    }
-    
-    /**
-     * Clear <node_id> value
-     *
-     * @return \Voldemort\ClockEntry
-     */
-    public function clearNodeId(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <node_id> value
-     *
-     * @return int
-     */
-    public function getNodeId(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <node_id> value
-     *
-     * @param int $value
-     * @return \Voldemort\ClockEntry
-     */
-    public function setNodeId( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <version> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersion(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <version> value
-     *
-     * @return \Voldemort\ClockEntry
-     */
-    public function clearVersion(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <version> value
-     *
-     * @return int
-     */
-    public function getVersion(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <version> value
-     *
-     * @param int $value
-     * @return \Voldemort\ClockEntry
-     */
-    public function setVersion( $value){
-      return $this->_set(2, $value);
-    }
-  }
-}
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.ClockEntry');
 
-namespace Voldemort {
+            // REQUIRED INT32 node_id = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "node_id";
+            $f->type = \DrSlump\Protobuf::TYPE_INT32;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
 
-  class VectorClock extends \DrSlump\Protobuf\Message {
+            // REQUIRED INT64 version = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "version";
+            $f->type = \DrSlump\Protobuf::TYPE_INT64;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
 
-    /**  @var \Voldemort\ClockEntry[]  */
-    public $entries = array();
-    
-    /**  @var int */
-    public $timestamp = null;
-    
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
 
-    /** @var \Closure[] */
-    protected static $__extensions = array();
+            return $descriptor;
+        }
 
-    public static function descriptor()
-    {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.VectorClock');
+        /**
+         * Check if <node_id> has a value
+         *
+         * @return boolean
+         */
+        public function hasNodeId()
+        {
+            return $this->_has(1);
+        }
 
-      // REPEATED MESSAGE entries = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "entries";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\ClockEntry';
-      $descriptor->addField($f);
+        /**
+         * Clear <node_id> value
+         *
+         * @return \Voldemort\ClockEntry
+         */
+        public function clearNodeId()
+        {
+            return $this->_clear(1);
+        }
 
-      // OPTIONAL INT64 timestamp = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "timestamp";
-      $f->type      = \DrSlump\Protobuf::TYPE_INT64;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $descriptor->addField($f);
+        /**
+         * Get <node_id> value
+         *
+         * @return int
+         */
+        public function getNodeId()
+        {
+            return $this->_get(1);
+        }
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
+        /**
+         * Set <node_id> value
+         *
+         * @param int $value
+         * @return \Voldemort\ClockEntry
+         */
+        public function setNodeId($value)
+        {
+            return $this->_set(1, $value);
+        }
 
-      return $descriptor;
-    }
+        /**
+         * Check if <version> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersion()
+        {
+            return $this->_has(2);
+        }
 
-    /**
-     * Check if <entries> has a value
-     *
-     * @return boolean
-     */
-    public function hasEntries(){
-      return $this->_has(1);
+        /**
+         * Clear <version> value
+         *
+         * @return \Voldemort\ClockEntry
+         */
+        public function clearVersion()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <version> value
+         *
+         * @return int
+         */
+        public function getVersion()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <version> value
+         *
+         * @param int $value
+         * @return \Voldemort\ClockEntry
+         */
+        public function setVersion($value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <entries> value
-     *
-     * @return \Voldemort\VectorClock
-     */
-    public function clearEntries(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <entries> value
-     *
-     * @param int $idx
-     * @return \Voldemort\ClockEntry
-     */
-    public function getEntries($idx = NULL){
-      return $this->_get(1, $idx);
-    }
-    
-    /**
-     * Set <entries> value
-     *
-     * @param \Voldemort\ClockEntry $value
-     * @return \Voldemort\VectorClock
-     */
-    public function setEntries(\Voldemort\ClockEntry $value, $idx = NULL){
-      return $this->_set(1, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <entries>
-     *
-     * @return \Voldemort\ClockEntry[]
-     */
-    public function getEntriesList(){
-     return $this->_get(1);
-    }
-    
-    /**
-     * Add a new element to <entries>
-     *
-     * @param \Voldemort\ClockEntry $value
-     * @return \Voldemort\VectorClock
-     */
-    public function addEntries(\Voldemort\ClockEntry $value){
-     return $this->_add(1, $value);
-    }
-    
-    /**
-     * Check if <timestamp> has a value
-     *
-     * @return boolean
-     */
-    public function hasTimestamp(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <timestamp> value
-     *
-     * @return \Voldemort\VectorClock
-     */
-    public function clearTimestamp(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <timestamp> value
-     *
-     * @return int
-     */
-    public function getTimestamp(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <timestamp> value
-     *
-     * @param int $value
-     * @return \Voldemort\VectorClock
-     */
-    public function setTimestamp( $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class Versioned extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $value = null;
-    
-    /**  @var \Voldemort\VectorClock */
-    public $version = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class VectorClock extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.Versioned');
 
-      // REQUIRED BYTES value = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "value";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var \Voldemort\ClockEntry[] */
+        public $entries = array();
 
-      // REQUIRED MESSAGE version = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "version";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $f->reference = '\Voldemort\VectorClock';
-      $descriptor->addField($f);
+        /**  @var int */
+        public $timestamp = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <value> has a value
-     *
-     * @return boolean
-     */
-    public function hasValue(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.VectorClock');
+
+            // REPEATED MESSAGE entries = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "entries";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\ClockEntry';
+            $descriptor->addField($f);
+
+            // OPTIONAL INT64 timestamp = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "timestamp";
+            $f->type = \DrSlump\Protobuf::TYPE_INT64;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <entries> has a value
+         *
+         * @return boolean
+         */
+        public function hasEntries()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <entries> value
+         *
+         * @return \Voldemort\VectorClock
+         */
+        public function clearEntries()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <entries> value
+         *
+         * @param int $idx
+         * @return \Voldemort\ClockEntry
+         */
+        public function getEntries($idx = null)
+        {
+            return $this->_get(1, $idx);
+        }
+
+        /**
+         * Set <entries> value
+         *
+         * @param \Voldemort\ClockEntry $value
+         * @return \Voldemort\VectorClock
+         */
+        public function setEntries(\Voldemort\ClockEntry $value, $idx = null)
+        {
+            return $this->_set(1, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <entries>
+         *
+         * @return \Voldemort\ClockEntry[]
+         */
+        public function getEntriesList()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Add a new element to <entries>
+         *
+         * @param \Voldemort\ClockEntry $value
+         * @return \Voldemort\VectorClock
+         */
+        public function addEntries(\Voldemort\ClockEntry $value)
+        {
+            return $this->_add(1, $value);
+        }
+
+        /**
+         * Check if <timestamp> has a value
+         *
+         * @return boolean
+         */
+        public function hasTimestamp()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <timestamp> value
+         *
+         * @return \Voldemort\VectorClock
+         */
+        public function clearTimestamp()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <timestamp> value
+         *
+         * @return int
+         */
+        public function getTimestamp()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <timestamp> value
+         *
+         * @param int $value
+         * @return \Voldemort\VectorClock
+         */
+        public function setTimestamp($value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <value> value
-     *
-     * @return \Voldemort\Versioned
-     */
-    public function clearValue(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <value> value
-     *
-     * @return string
-     */
-    public function getValue(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <value> value
-     *
-     * @param string $value
-     * @return \Voldemort\Versioned
-     */
-    public function setValue( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <version> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersion(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <version> value
-     *
-     * @return \Voldemort\Versioned
-     */
-    public function clearVersion(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <version> value
-     *
-     * @return \Voldemort\VectorClock
-     */
-    public function getVersion(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <version> value
-     *
-     * @param \Voldemort\VectorClock $value
-     * @return \Voldemort\Versioned
-     */
-    public function setVersion(\Voldemort\VectorClock $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class Error extends \DrSlump\Protobuf\Message {
-
-    /**  @var int */
-    public $error_code = null;
-    
-    /**  @var string */
-    public $error_message = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class Versioned extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.Error');
 
-      // REQUIRED INT32 error_code = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "error_code";
-      $f->type      = \DrSlump\Protobuf::TYPE_INT32;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $value = null;
 
-      // REQUIRED STRING error_message = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "error_message";
-      $f->type      = \DrSlump\Protobuf::TYPE_STRING;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var \Voldemort\VectorClock */
+        public $version = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <error_code> has a value
-     *
-     * @return boolean
-     */
-    public function hasErrorCode(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.Versioned');
+
+            // REQUIRED BYTES value = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "value";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REQUIRED MESSAGE version = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "version";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $f->reference = '\Voldemort\VectorClock';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <value> has a value
+         *
+         * @return boolean
+         */
+        public function hasValue()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <value> value
+         *
+         * @return \Voldemort\Versioned
+         */
+        public function clearValue()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <value> value
+         *
+         * @return string
+         */
+        public function getValue()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <value> value
+         *
+         * @param string $value
+         * @return \Voldemort\Versioned
+         */
+        public function setValue($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <version> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersion()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <version> value
+         *
+         * @return \Voldemort\Versioned
+         */
+        public function clearVersion()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <version> value
+         *
+         * @return \Voldemort\VectorClock
+         */
+        public function getVersion()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <version> value
+         *
+         * @param \Voldemort\VectorClock $value
+         * @return \Voldemort\Versioned
+         */
+        public function setVersion(\Voldemort\VectorClock $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <error_code> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function clearErrorCode(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <error_code> value
-     *
-     * @return int
-     */
-    public function getErrorCode(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <error_code> value
-     *
-     * @param int $value
-     * @return \Voldemort\Error
-     */
-    public function setErrorCode( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <error_message> has a value
-     *
-     * @return boolean
-     */
-    public function hasErrorMessage(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <error_message> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function clearErrorMessage(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <error_message> value
-     *
-     * @return string
-     */
-    public function getErrorMessage(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <error_message> value
-     *
-     * @param string $value
-     * @return \Voldemort\Error
-     */
-    public function setErrorMessage( $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class KeyedVersions extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $key = null;
-    
-    /**  @var \Voldemort\Versioned[]  */
-    public $versions = array();
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class Error extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.KeyedVersions');
 
-      // REQUIRED BYTES key = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "key";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var int */
+        public $error_code = null;
 
-      // REPEATED MESSAGE versions = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "versions";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\Versioned';
-      $descriptor->addField($f);
+        /**  @var string */
+        public $error_message = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <key> has a value
-     *
-     * @return boolean
-     */
-    public function hasKey(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.Error');
+
+            // REQUIRED INT32 error_code = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "error_code";
+            $f->type = \DrSlump\Protobuf::TYPE_INT32;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REQUIRED STRING error_message = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "error_message";
+            $f->type = \DrSlump\Protobuf::TYPE_STRING;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <error_code> has a value
+         *
+         * @return boolean
+         */
+        public function hasErrorCode()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <error_code> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function clearErrorCode()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <error_code> value
+         *
+         * @return int
+         */
+        public function getErrorCode()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <error_code> value
+         *
+         * @param int $value
+         * @return \Voldemort\Error
+         */
+        public function setErrorCode($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <error_message> has a value
+         *
+         * @return boolean
+         */
+        public function hasErrorMessage()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <error_message> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function clearErrorMessage()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <error_message> value
+         *
+         * @return string
+         */
+        public function getErrorMessage()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <error_message> value
+         *
+         * @param string $value
+         * @return \Voldemort\Error
+         */
+        public function setErrorMessage($value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <key> value
-     *
-     * @return \Voldemort\KeyedVersions
-     */
-    public function clearKey(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <key> value
-     *
-     * @return string
-     */
-    public function getKey(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <key> value
-     *
-     * @param string $value
-     * @return \Voldemort\KeyedVersions
-     */
-    public function setKey( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <versions> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersions(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <versions> value
-     *
-     * @return \Voldemort\KeyedVersions
-     */
-    public function clearVersions(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <versions> value
-     *
-     * @param int $idx
-     * @return \Voldemort\Versioned
-     */
-    public function getVersions($idx = NULL){
-      return $this->_get(2, $idx);
-    }
-    
-    /**
-     * Set <versions> value
-     *
-     * @param \Voldemort\Versioned $value
-     * @return \Voldemort\KeyedVersions
-     */
-    public function setVersions(\Voldemort\Versioned $value, $idx = NULL){
-      return $this->_set(2, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <versions>
-     *
-     * @return \Voldemort\Versioned[]
-     */
-    public function getVersionsList(){
-     return $this->_get(2);
-    }
-    
-    /**
-     * Add a new element to <versions>
-     *
-     * @param \Voldemort\Versioned $value
-     * @return \Voldemort\KeyedVersions
-     */
-    public function addVersions(\Voldemort\Versioned $value){
-     return $this->_add(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class GetRequest extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $key = null;
-    
-    /**  @var string */
-    public $transforms = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class KeyedVersions extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetRequest');
 
-      // OPTIONAL BYTES key = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "key";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $key = null;
 
-      // OPTIONAL BYTES transforms = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "transforms";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Versioned[] */
+        public $versions = array();
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <key> has a value
-     *
-     * @return boolean
-     */
-    public function hasKey(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.KeyedVersions');
+
+            // REQUIRED BYTES key = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "key";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REPEATED MESSAGE versions = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "versions";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\Versioned';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <key> has a value
+         *
+         * @return boolean
+         */
+        public function hasKey()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <key> value
+         *
+         * @return \Voldemort\KeyedVersions
+         */
+        public function clearKey()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <key> value
+         *
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <key> value
+         *
+         * @param string $value
+         * @return \Voldemort\KeyedVersions
+         */
+        public function setKey($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <versions> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersions()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <versions> value
+         *
+         * @return \Voldemort\KeyedVersions
+         */
+        public function clearVersions()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <versions> value
+         *
+         * @param int $idx
+         * @return \Voldemort\Versioned
+         */
+        public function getVersions($idx = null)
+        {
+            return $this->_get(2, $idx);
+        }
+
+        /**
+         * Set <versions> value
+         *
+         * @param \Voldemort\Versioned $value
+         * @return \Voldemort\KeyedVersions
+         */
+        public function setVersions(\Voldemort\Versioned $value, $idx = null)
+        {
+            return $this->_set(2, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <versions>
+         *
+         * @return \Voldemort\Versioned[]
+         */
+        public function getVersionsList()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Add a new element to <versions>
+         *
+         * @param \Voldemort\Versioned $value
+         * @return \Voldemort\KeyedVersions
+         */
+        public function addVersions(\Voldemort\Versioned $value)
+        {
+            return $this->_add(2, $value);
+        }
     }
-    
-    /**
-     * Clear <key> value
-     *
-     * @return \Voldemort\GetRequest
-     */
-    public function clearKey(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <key> value
-     *
-     * @return string
-     */
-    public function getKey(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <key> value
-     *
-     * @param string $value
-     * @return \Voldemort\GetRequest
-     */
-    public function setKey( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <transforms> has a value
-     *
-     * @return boolean
-     */
-    public function hasTransforms(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <transforms> value
-     *
-     * @return \Voldemort\GetRequest
-     */
-    public function clearTransforms(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <transforms> value
-     *
-     * @return string
-     */
-    public function getTransforms(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <transforms> value
-     *
-     * @param string $value
-     * @return \Voldemort\GetRequest
-     */
-    public function setTransforms( $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class GetResponse extends \DrSlump\Protobuf\Message {
-
-    /**  @var \Voldemort\Versioned[]  */
-    public $versioned = array();
-    
-    /**  @var \Voldemort\Error */
-    public $error = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class GetRequest extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetResponse');
 
-      // REPEATED MESSAGE versioned = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "versioned";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\Versioned';
-      $descriptor->addField($f);
+        /**  @var string */
+        public $key = null;
 
-      // OPTIONAL MESSAGE error = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "error";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\Error';
-      $descriptor->addField($f);
+        /**  @var string */
+        public $transforms = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <versioned> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersioned(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetRequest');
+
+            // OPTIONAL BYTES key = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "key";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $descriptor->addField($f);
+
+            // OPTIONAL BYTES transforms = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "transforms";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <key> has a value
+         *
+         * @return boolean
+         */
+        public function hasKey()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <key> value
+         *
+         * @return \Voldemort\GetRequest
+         */
+        public function clearKey()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <key> value
+         *
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <key> value
+         *
+         * @param string $value
+         * @return \Voldemort\GetRequest
+         */
+        public function setKey($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <transforms> has a value
+         *
+         * @return boolean
+         */
+        public function hasTransforms()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <transforms> value
+         *
+         * @return \Voldemort\GetRequest
+         */
+        public function clearTransforms()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <transforms> value
+         *
+         * @return string
+         */
+        public function getTransforms()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <transforms> value
+         *
+         * @param string $value
+         * @return \Voldemort\GetRequest
+         */
+        public function setTransforms($value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <versioned> value
-     *
-     * @return \Voldemort\GetResponse
-     */
-    public function clearVersioned(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <versioned> value
-     *
-     * @param int $idx
-     * @return \Voldemort\Versioned
-     */
-    public function getVersioned($idx = NULL){
-      return $this->_get(1, $idx);
-    }
-    
-    /**
-     * Set <versioned> value
-     *
-     * @param \Voldemort\Versioned $value
-     * @return \Voldemort\GetResponse
-     */
-    public function setVersioned(\Voldemort\Versioned $value, $idx = NULL){
-      return $this->_set(1, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <versioned>
-     *
-     * @return \Voldemort\Versioned[]
-     */
-    public function getVersionedList(){
-     return $this->_get(1);
-    }
-    
-    /**
-     * Add a new element to <versioned>
-     *
-     * @param \Voldemort\Versioned $value
-     * @return \Voldemort\GetResponse
-     */
-    public function addVersioned(\Voldemort\Versioned $value){
-     return $this->_add(1, $value);
-    }
-    
-    /**
-     * Check if <error> has a value
-     *
-     * @return boolean
-     */
-    public function hasError(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <error> value
-     *
-     * @return \Voldemort\GetResponse
-     */
-    public function clearError(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <error> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function getError(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <error> value
-     *
-     * @param \Voldemort\Error $value
-     * @return \Voldemort\GetResponse
-     */
-    public function setError(\Voldemort\Error $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class GetVersionResponse extends \DrSlump\Protobuf\Message {
-
-    /**  @var \Voldemort\VectorClock[]  */
-    public $versions = array();
-    
-    /**  @var \Voldemort\Error */
-    public $error = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class GetResponse extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetVersionResponse');
 
-      // REPEATED MESSAGE versions = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "versions";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\VectorClock';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Versioned[] */
+        public $versioned = array();
 
-      // OPTIONAL MESSAGE error = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "error";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\Error';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Error */
+        public $error = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <versions> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersions(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetResponse');
+
+            // REPEATED MESSAGE versioned = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "versioned";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\Versioned';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE error = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "error";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\Error';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <versioned> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersioned()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <versioned> value
+         *
+         * @return \Voldemort\GetResponse
+         */
+        public function clearVersioned()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <versioned> value
+         *
+         * @param int $idx
+         * @return \Voldemort\Versioned
+         */
+        public function getVersioned($idx = null)
+        {
+            return $this->_get(1, $idx);
+        }
+
+        /**
+         * Set <versioned> value
+         *
+         * @param \Voldemort\Versioned $value
+         * @return \Voldemort\GetResponse
+         */
+        public function setVersioned(\Voldemort\Versioned $value, $idx = null)
+        {
+            return $this->_set(1, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <versioned>
+         *
+         * @return \Voldemort\Versioned[]
+         */
+        public function getVersionedList()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Add a new element to <versioned>
+         *
+         * @param \Voldemort\Versioned $value
+         * @return \Voldemort\GetResponse
+         */
+        public function addVersioned(\Voldemort\Versioned $value)
+        {
+            return $this->_add(1, $value);
+        }
+
+        /**
+         * Check if <error> has a value
+         *
+         * @return boolean
+         */
+        public function hasError()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <error> value
+         *
+         * @return \Voldemort\GetResponse
+         */
+        public function clearError()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <error> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function getError()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <error> value
+         *
+         * @param \Voldemort\Error $value
+         * @return \Voldemort\GetResponse
+         */
+        public function setError(\Voldemort\Error $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <versions> value
-     *
-     * @return \Voldemort\GetVersionResponse
-     */
-    public function clearVersions(){
-      return $this->_clear(1);
+}
+
+namespace Voldemort {
+
+    class GetVersionResponse extends \DrSlump\Protobuf\Message
+    {
+
+        /**  @var \Voldemort\VectorClock[] */
+        public $versions = array();
+
+        /**  @var \Voldemort\Error */
+        public $error = null;
+
+
+        /** @var \Closure[] */
+        protected static $__extensions = array();
+
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetVersionResponse');
+
+            // REPEATED MESSAGE versions = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "versions";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\VectorClock';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE error = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "error";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\Error';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <versions> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersions()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <versions> value
+         *
+         * @return \Voldemort\GetVersionResponse
+         */
+        public function clearVersions()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <versions> value
+         *
+         * @param int $idx
+         * @return \Voldemort\VectorClock
+         */
+        public function getVersions($idx = null)
+        {
+            return $this->_get(1, $idx);
+        }
+
+        /**
+         * Set <versions> value
+         *
+         * @param \Voldemort\VectorClock $value
+         * @return \Voldemort\GetVersionResponse
+         */
+        public function setVersions(\Voldemort\VectorClock $value, $idx = null)
+        {
+            return $this->_set(1, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <versions>
+         *
+         * @return \Voldemort\VectorClock[]
+         */
+        public function getVersionsList()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Add a new element to <versions>
+         *
+         * @param \Voldemort\VectorClock $value
+         * @return \Voldemort\GetVersionResponse
+         */
+        public function addVersions(\Voldemort\VectorClock $value)
+        {
+            return $this->_add(1, $value);
+        }
+
+        /**
+         * Check if <error> has a value
+         *
+         * @return boolean
+         */
+        public function hasError()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <error> value
+         *
+         * @return \Voldemort\GetVersionResponse
+         */
+        public function clearError()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <error> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function getError()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <error> value
+         *
+         * @param \Voldemort\Error $value
+         * @return \Voldemort\GetVersionResponse
+         */
+        public function setError(\Voldemort\Error $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Get <versions> value
-     *
-     * @param int $idx
-     * @return \Voldemort\VectorClock
-     */
-    public function getVersions($idx = NULL){
-      return $this->_get(1, $idx);
-    }
-    
-    /**
-     * Set <versions> value
-     *
-     * @param \Voldemort\VectorClock $value
-     * @return \Voldemort\GetVersionResponse
-     */
-    public function setVersions(\Voldemort\VectorClock $value, $idx = NULL){
-      return $this->_set(1, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <versions>
-     *
-     * @return \Voldemort\VectorClock[]
-     */
-    public function getVersionsList(){
-     return $this->_get(1);
-    }
-    
-    /**
-     * Add a new element to <versions>
-     *
-     * @param \Voldemort\VectorClock $value
-     * @return \Voldemort\GetVersionResponse
-     */
-    public function addVersions(\Voldemort\VectorClock $value){
-     return $this->_add(1, $value);
-    }
-    
-    /**
-     * Check if <error> has a value
-     *
-     * @return boolean
-     */
-    public function hasError(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <error> value
-     *
-     * @return \Voldemort\GetVersionResponse
-     */
-    public function clearError(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <error> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function getError(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <error> value
-     *
-     * @param \Voldemort\Error $value
-     * @return \Voldemort\GetVersionResponse
-     */
-    public function setError(\Voldemort\Error $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort\GetAllRequest {
 
-  class GetAllTransform extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $key = null;
-    
-    /**  @var string */
-    public $transform = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class GetAllTransform extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllRequest.GetAllTransform');
 
-      // REQUIRED BYTES key = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "key";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $key = null;
 
-      // REQUIRED BYTES transform = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "transform";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $transform = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <key> has a value
-     *
-     * @return boolean
-     */
-    public function hasKey(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllRequest.GetAllTransform');
+
+            // REQUIRED BYTES key = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "key";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REQUIRED BYTES transform = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "transform";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <key> has a value
+         *
+         * @return boolean
+         */
+        public function hasKey()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <key> value
+         *
+         * @return \Voldemort\GetAllRequest\GetAllTransform
+         */
+        public function clearKey()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <key> value
+         *
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <key> value
+         *
+         * @param string $value
+         * @return \Voldemort\GetAllRequest\GetAllTransform
+         */
+        public function setKey($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <transform> has a value
+         *
+         * @return boolean
+         */
+        public function hasTransform()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <transform> value
+         *
+         * @return \Voldemort\GetAllRequest\GetAllTransform
+         */
+        public function clearTransform()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <transform> value
+         *
+         * @return string
+         */
+        public function getTransform()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <transform> value
+         *
+         * @param string $value
+         * @return \Voldemort\GetAllRequest\GetAllTransform
+         */
+        public function setTransform($value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <key> value
-     *
-     * @return \Voldemort\GetAllRequest\GetAllTransform
-     */
-    public function clearKey(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <key> value
-     *
-     * @return string
-     */
-    public function getKey(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <key> value
-     *
-     * @param string $value
-     * @return \Voldemort\GetAllRequest\GetAllTransform
-     */
-    public function setKey( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <transform> has a value
-     *
-     * @return boolean
-     */
-    public function hasTransform(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <transform> value
-     *
-     * @return \Voldemort\GetAllRequest\GetAllTransform
-     */
-    public function clearTransform(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <transform> value
-     *
-     * @return string
-     */
-    public function getTransform(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <transform> value
-     *
-     * @param string $value
-     * @return \Voldemort\GetAllRequest\GetAllTransform
-     */
-    public function setTransform( $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class GetAllRequest extends \DrSlump\Protobuf\Message {
-
-    /**  @var string[]  */
-    public $keys = array();
-    
-    /**  @var \Voldemort\GetAllRequest\GetAllTransform[]  */
-    public $transforms = array();
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class GetAllRequest extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllRequest');
 
-      // REPEATED BYTES keys = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "keys";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $descriptor->addField($f);
+        /**  @var string[] */
+        public $keys = array();
 
-      // REPEATED MESSAGE transforms = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "transforms";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\GetAllRequest\GetAllTransform';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\GetAllRequest\GetAllTransform[] */
+        public $transforms = array();
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <keys> has a value
-     *
-     * @return boolean
-     */
-    public function hasKeys(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllRequest');
+
+            // REPEATED BYTES keys = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "keys";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $descriptor->addField($f);
+
+            // REPEATED MESSAGE transforms = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "transforms";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\GetAllRequest\GetAllTransform';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <keys> has a value
+         *
+         * @return boolean
+         */
+        public function hasKeys()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <keys> value
+         *
+         * @return \Voldemort\GetAllRequest
+         */
+        public function clearKeys()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <keys> value
+         *
+         * @param int $idx
+         * @return string
+         */
+        public function getKeys($idx = null)
+        {
+            return $this->_get(1, $idx);
+        }
+
+        /**
+         * Set <keys> value
+         *
+         * @param string $value
+         * @return \Voldemort\GetAllRequest
+         */
+        public function setKeys($value, $idx = null)
+        {
+            return $this->_set(1, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <keys>
+         *
+         * @return string[]
+         */
+        public function getKeysList()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Add a new element to <keys>
+         *
+         * @param string $value
+         * @return \Voldemort\GetAllRequest
+         */
+        public function addKeys($value)
+        {
+            return $this->_add(1, $value);
+        }
+
+        /**
+         * Check if <transforms> has a value
+         *
+         * @return boolean
+         */
+        public function hasTransforms()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <transforms> value
+         *
+         * @return \Voldemort\GetAllRequest
+         */
+        public function clearTransforms()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <transforms> value
+         *
+         * @param int $idx
+         * @return \Voldemort\GetAllRequest\GetAllTransform
+         */
+        public function getTransforms($idx = null)
+        {
+            return $this->_get(2, $idx);
+        }
+
+        /**
+         * Set <transforms> value
+         *
+         * @param \Voldemort\GetAllRequest\GetAllTransform $value
+         * @return \Voldemort\GetAllRequest
+         */
+        public function setTransforms(\Voldemort\GetAllRequest\GetAllTransform $value, $idx = null)
+        {
+            return $this->_set(2, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <transforms>
+         *
+         * @return \Voldemort\GetAllRequest\GetAllTransform[]
+         */
+        public function getTransformsList()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Add a new element to <transforms>
+         *
+         * @param \Voldemort\GetAllRequest\GetAllTransform $value
+         * @return \Voldemort\GetAllRequest
+         */
+        public function addTransforms(\Voldemort\GetAllRequest\GetAllTransform $value)
+        {
+            return $this->_add(2, $value);
+        }
     }
-    
-    /**
-     * Clear <keys> value
-     *
-     * @return \Voldemort\GetAllRequest
-     */
-    public function clearKeys(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <keys> value
-     *
-     * @param int $idx
-     * @return string
-     */
-    public function getKeys($idx = NULL){
-      return $this->_get(1, $idx);
-    }
-    
-    /**
-     * Set <keys> value
-     *
-     * @param string $value
-     * @return \Voldemort\GetAllRequest
-     */
-    public function setKeys( $value, $idx = NULL){
-      return $this->_set(1, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <keys>
-     *
-     * @return string[]
-     */
-    public function getKeysList(){
-     return $this->_get(1);
-    }
-    
-    /**
-     * Add a new element to <keys>
-     *
-     * @param string $value
-     * @return \Voldemort\GetAllRequest
-     */
-    public function addKeys( $value){
-     return $this->_add(1, $value);
-    }
-    
-    /**
-     * Check if <transforms> has a value
-     *
-     * @return boolean
-     */
-    public function hasTransforms(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <transforms> value
-     *
-     * @return \Voldemort\GetAllRequest
-     */
-    public function clearTransforms(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <transforms> value
-     *
-     * @param int $idx
-     * @return \Voldemort\GetAllRequest\GetAllTransform
-     */
-    public function getTransforms($idx = NULL){
-      return $this->_get(2, $idx);
-    }
-    
-    /**
-     * Set <transforms> value
-     *
-     * @param \Voldemort\GetAllRequest\GetAllTransform $value
-     * @return \Voldemort\GetAllRequest
-     */
-    public function setTransforms(\Voldemort\GetAllRequest\GetAllTransform $value, $idx = NULL){
-      return $this->_set(2, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <transforms>
-     *
-     * @return \Voldemort\GetAllRequest\GetAllTransform[]
-     */
-    public function getTransformsList(){
-     return $this->_get(2);
-    }
-    
-    /**
-     * Add a new element to <transforms>
-     *
-     * @param \Voldemort\GetAllRequest\GetAllTransform $value
-     * @return \Voldemort\GetAllRequest
-     */
-    public function addTransforms(\Voldemort\GetAllRequest\GetAllTransform $value){
-     return $this->_add(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class GetAllResponse extends \DrSlump\Protobuf\Message {
-
-    /**  @var \Voldemort\KeyedVersions[]  */
-    public $values = array();
-    
-    /**  @var \Voldemort\Error */
-    public $error = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class GetAllResponse extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllResponse');
 
-      // REPEATED MESSAGE values = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "values";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REPEATED;
-      $f->reference = '\Voldemort\KeyedVersions';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\KeyedVersions[] */
+        public $values = array();
 
-      // OPTIONAL MESSAGE error = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "error";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\Error';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Error */
+        public $error = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <values> has a value
-     *
-     * @return boolean
-     */
-    public function hasValues(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.GetAllResponse');
+
+            // REPEATED MESSAGE values = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "values";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REPEATED;
+            $f->reference = '\Voldemort\KeyedVersions';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE error = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "error";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\Error';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <values> has a value
+         *
+         * @return boolean
+         */
+        public function hasValues()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <values> value
+         *
+         * @return \Voldemort\GetAllResponse
+         */
+        public function clearValues()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <values> value
+         *
+         * @param int $idx
+         * @return \Voldemort\KeyedVersions
+         */
+        public function getValues($idx = null)
+        {
+            return $this->_get(1, $idx);
+        }
+
+        /**
+         * Set <values> value
+         *
+         * @param \Voldemort\KeyedVersions $value
+         * @return \Voldemort\GetAllResponse
+         */
+        public function setValues(\Voldemort\KeyedVersions $value, $idx = null)
+        {
+            return $this->_set(1, $value, $idx);
+        }
+
+        /**
+         * Get all elements of <values>
+         *
+         * @return \Voldemort\KeyedVersions[]
+         */
+        public function getValuesList()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Add a new element to <values>
+         *
+         * @param \Voldemort\KeyedVersions $value
+         * @return \Voldemort\GetAllResponse
+         */
+        public function addValues(\Voldemort\KeyedVersions $value)
+        {
+            return $this->_add(1, $value);
+        }
+
+        /**
+         * Check if <error> has a value
+         *
+         * @return boolean
+         */
+        public function hasError()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <error> value
+         *
+         * @return \Voldemort\GetAllResponse
+         */
+        public function clearError()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <error> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function getError()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <error> value
+         *
+         * @param \Voldemort\Error $value
+         * @return \Voldemort\GetAllResponse
+         */
+        public function setError(\Voldemort\Error $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <values> value
-     *
-     * @return \Voldemort\GetAllResponse
-     */
-    public function clearValues(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <values> value
-     *
-     * @param int $idx
-     * @return \Voldemort\KeyedVersions
-     */
-    public function getValues($idx = NULL){
-      return $this->_get(1, $idx);
-    }
-    
-    /**
-     * Set <values> value
-     *
-     * @param \Voldemort\KeyedVersions $value
-     * @return \Voldemort\GetAllResponse
-     */
-    public function setValues(\Voldemort\KeyedVersions $value, $idx = NULL){
-      return $this->_set(1, $value, $idx);
-    }
-    
-    /**
-     * Get all elements of <values>
-     *
-     * @return \Voldemort\KeyedVersions[]
-     */
-    public function getValuesList(){
-     return $this->_get(1);
-    }
-    
-    /**
-     * Add a new element to <values>
-     *
-     * @param \Voldemort\KeyedVersions $value
-     * @return \Voldemort\GetAllResponse
-     */
-    public function addValues(\Voldemort\KeyedVersions $value){
-     return $this->_add(1, $value);
-    }
-    
-    /**
-     * Check if <error> has a value
-     *
-     * @return boolean
-     */
-    public function hasError(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <error> value
-     *
-     * @return \Voldemort\GetAllResponse
-     */
-    public function clearError(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <error> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function getError(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <error> value
-     *
-     * @param \Voldemort\Error $value
-     * @return \Voldemort\GetAllResponse
-     */
-    public function setError(\Voldemort\Error $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class PutRequest extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $key = null;
-    
-    /**  @var \Voldemort\Versioned */
-    public $versioned = null;
-    
-    /**  @var string */
-    public $transforms = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class PutRequest extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.PutRequest');
 
-      // REQUIRED BYTES key = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "key";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $key = null;
 
-      // REQUIRED MESSAGE versioned = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "versioned";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $f->reference = '\Voldemort\Versioned';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Versioned */
+        public $versioned = null;
 
-      // OPTIONAL BYTES transforms = 3
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 3;
-      $f->name      = "transforms";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $transforms = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <key> has a value
-     *
-     * @return boolean
-     */
-    public function hasKey(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.PutRequest');
+
+            // REQUIRED BYTES key = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "key";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REQUIRED MESSAGE versioned = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "versioned";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $f->reference = '\Voldemort\Versioned';
+            $descriptor->addField($f);
+
+            // OPTIONAL BYTES transforms = 3
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 3;
+            $f->name = "transforms";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <key> has a value
+         *
+         * @return boolean
+         */
+        public function hasKey()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <key> value
+         *
+         * @return \Voldemort\PutRequest
+         */
+        public function clearKey()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <key> value
+         *
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <key> value
+         *
+         * @param string $value
+         * @return \Voldemort\PutRequest
+         */
+        public function setKey($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <versioned> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersioned()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <versioned> value
+         *
+         * @return \Voldemort\PutRequest
+         */
+        public function clearVersioned()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <versioned> value
+         *
+         * @return \Voldemort\Versioned
+         */
+        public function getVersioned()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <versioned> value
+         *
+         * @param \Voldemort\Versioned $value
+         * @return \Voldemort\PutRequest
+         */
+        public function setVersioned(\Voldemort\Versioned $value)
+        {
+            return $this->_set(2, $value);
+        }
+
+        /**
+         * Check if <transforms> has a value
+         *
+         * @return boolean
+         */
+        public function hasTransforms()
+        {
+            return $this->_has(3);
+        }
+
+        /**
+         * Clear <transforms> value
+         *
+         * @return \Voldemort\PutRequest
+         */
+        public function clearTransforms()
+        {
+            return $this->_clear(3);
+        }
+
+        /**
+         * Get <transforms> value
+         *
+         * @return string
+         */
+        public function getTransforms()
+        {
+            return $this->_get(3);
+        }
+
+        /**
+         * Set <transforms> value
+         *
+         * @param string $value
+         * @return \Voldemort\PutRequest
+         */
+        public function setTransforms($value)
+        {
+            return $this->_set(3, $value);
+        }
     }
-    
-    /**
-     * Clear <key> value
-     *
-     * @return \Voldemort\PutRequest
-     */
-    public function clearKey(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <key> value
-     *
-     * @return string
-     */
-    public function getKey(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <key> value
-     *
-     * @param string $value
-     * @return \Voldemort\PutRequest
-     */
-    public function setKey( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <versioned> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersioned(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <versioned> value
-     *
-     * @return \Voldemort\PutRequest
-     */
-    public function clearVersioned(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <versioned> value
-     *
-     * @return \Voldemort\Versioned
-     */
-    public function getVersioned(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <versioned> value
-     *
-     * @param \Voldemort\Versioned $value
-     * @return \Voldemort\PutRequest
-     */
-    public function setVersioned(\Voldemort\Versioned $value){
-      return $this->_set(2, $value);
-    }
-    
-    /**
-     * Check if <transforms> has a value
-     *
-     * @return boolean
-     */
-    public function hasTransforms(){
-      return $this->_has(3);
-    }
-    
-    /**
-     * Clear <transforms> value
-     *
-     * @return \Voldemort\PutRequest
-     */
-    public function clearTransforms(){
-      return $this->_clear(3);
-    }
-    
-    /**
-     * Get <transforms> value
-     *
-     * @return string
-     */
-    public function getTransforms(){
-      return $this->_get(3);
-    }
-    
-    /**
-     * Set <transforms> value
-     *
-     * @param string $value
-     * @return \Voldemort\PutRequest
-     */
-    public function setTransforms( $value){
-      return $this->_set(3, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class PutResponse extends \DrSlump\Protobuf\Message {
-
-    /**  @var \Voldemort\Error */
-    public $error = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class PutResponse extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.PutResponse');
 
-      // OPTIONAL MESSAGE error = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "error";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\Error';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Error */
+        public $error = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <error> has a value
-     *
-     * @return boolean
-     */
-    public function hasError(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.PutResponse');
+
+            // OPTIONAL MESSAGE error = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "error";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\Error';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <error> has a value
+         *
+         * @return boolean
+         */
+        public function hasError()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <error> value
+         *
+         * @return \Voldemort\PutResponse
+         */
+        public function clearError()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <error> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function getError()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <error> value
+         *
+         * @param \Voldemort\Error $value
+         * @return \Voldemort\PutResponse
+         */
+        public function setError(\Voldemort\Error $value)
+        {
+            return $this->_set(1, $value);
+        }
     }
-    
-    /**
-     * Clear <error> value
-     *
-     * @return \Voldemort\PutResponse
-     */
-    public function clearError(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <error> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function getError(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <error> value
-     *
-     * @param \Voldemort\Error $value
-     * @return \Voldemort\PutResponse
-     */
-    public function setError(\Voldemort\Error $value){
-      return $this->_set(1, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class DeleteRequest extends \DrSlump\Protobuf\Message {
-
-    /**  @var string */
-    public $key = null;
-    
-    /**  @var \Voldemort\VectorClock */
-    public $version = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class DeleteRequest extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.DeleteRequest');
 
-      // REQUIRED BYTES key = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "key";
-      $f->type      = \DrSlump\Protobuf::TYPE_BYTES;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $key = null;
 
-      // REQUIRED MESSAGE version = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "version";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $f->reference = '\Voldemort\VectorClock';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\VectorClock */
+        public $version = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <key> has a value
-     *
-     * @return boolean
-     */
-    public function hasKey(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.DeleteRequest');
+
+            // REQUIRED BYTES key = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "key";
+            $f->type = \DrSlump\Protobuf::TYPE_BYTES;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // REQUIRED MESSAGE version = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "version";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $f->reference = '\Voldemort\VectorClock';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <key> has a value
+         *
+         * @return boolean
+         */
+        public function hasKey()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <key> value
+         *
+         * @return \Voldemort\DeleteRequest
+         */
+        public function clearKey()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <key> value
+         *
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <key> value
+         *
+         * @param string $value
+         * @return \Voldemort\DeleteRequest
+         */
+        public function setKey($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <version> has a value
+         *
+         * @return boolean
+         */
+        public function hasVersion()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <version> value
+         *
+         * @return \Voldemort\DeleteRequest
+         */
+        public function clearVersion()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <version> value
+         *
+         * @return \Voldemort\VectorClock
+         */
+        public function getVersion()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <version> value
+         *
+         * @param \Voldemort\VectorClock $value
+         * @return \Voldemort\DeleteRequest
+         */
+        public function setVersion(\Voldemort\VectorClock $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <key> value
-     *
-     * @return \Voldemort\DeleteRequest
-     */
-    public function clearKey(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <key> value
-     *
-     * @return string
-     */
-    public function getKey(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <key> value
-     *
-     * @param string $value
-     * @return \Voldemort\DeleteRequest
-     */
-    public function setKey( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <version> has a value
-     *
-     * @return boolean
-     */
-    public function hasVersion(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <version> value
-     *
-     * @return \Voldemort\DeleteRequest
-     */
-    public function clearVersion(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <version> value
-     *
-     * @return \Voldemort\VectorClock
-     */
-    public function getVersion(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <version> value
-     *
-     * @param \Voldemort\VectorClock $value
-     * @return \Voldemort\DeleteRequest
-     */
-    public function setVersion(\Voldemort\VectorClock $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class DeleteResponse extends \DrSlump\Protobuf\Message {
-
-    /**  @var boolean */
-    public $success = null;
-    
-    /**  @var \Voldemort\Error */
-    public $error = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class DeleteResponse extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.DeleteResponse');
 
-      // REQUIRED BOOL success = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "success";
-      $f->type      = \DrSlump\Protobuf::TYPE_BOOL;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var boolean */
+        public $success = null;
 
-      // OPTIONAL MESSAGE error = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "error";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\Error';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\Error */
+        public $error = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <success> has a value
-     *
-     * @return boolean
-     */
-    public function hasSuccess(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.DeleteResponse');
+
+            // REQUIRED BOOL success = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "success";
+            $f->type = \DrSlump\Protobuf::TYPE_BOOL;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE error = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "error";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\Error';
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <success> has a value
+         *
+         * @return boolean
+         */
+        public function hasSuccess()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <success> value
+         *
+         * @return \Voldemort\DeleteResponse
+         */
+        public function clearSuccess()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <success> value
+         *
+         * @return boolean
+         */
+        public function getSuccess()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <success> value
+         *
+         * @param boolean $value
+         * @return \Voldemort\DeleteResponse
+         */
+        public function setSuccess($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <error> has a value
+         *
+         * @return boolean
+         */
+        public function hasError()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <error> value
+         *
+         * @return \Voldemort\DeleteResponse
+         */
+        public function clearError()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <error> value
+         *
+         * @return \Voldemort\Error
+         */
+        public function getError()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <error> value
+         *
+         * @param \Voldemort\Error $value
+         * @return \Voldemort\DeleteResponse
+         */
+        public function setError(\Voldemort\Error $value)
+        {
+            return $this->_set(2, $value);
+        }
     }
-    
-    /**
-     * Clear <success> value
-     *
-     * @return \Voldemort\DeleteResponse
-     */
-    public function clearSuccess(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <success> value
-     *
-     * @return boolean
-     */
-    public function getSuccess(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <success> value
-     *
-     * @param boolean $value
-     * @return \Voldemort\DeleteResponse
-     */
-    public function setSuccess( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <error> has a value
-     *
-     * @return boolean
-     */
-    public function hasError(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <error> value
-     *
-     * @return \Voldemort\DeleteResponse
-     */
-    public function clearError(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <error> value
-     *
-     * @return \Voldemort\Error
-     */
-    public function getError(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <error> value
-     *
-     * @param \Voldemort\Error $value
-     * @return \Voldemort\DeleteResponse
-     */
-    public function setError(\Voldemort\Error $value){
-      return $this->_set(2, $value);
-    }
-  }
 }
 
 namespace Voldemort {
 
-  class VoldemortRequest extends \DrSlump\Protobuf\Message {
-
-    /**  @var int - \Voldemort\RequestType */
-    public $type = null;
-    
-    /**  @var boolean */
-    public $should_route = true;
-    
-    /**  @var string */
-    public $store = null;
-    
-    /**  @var \Voldemort\GetRequest */
-    public $get = null;
-    
-    /**  @var \Voldemort\GetAllRequest */
-    public $getAll = null;
-    
-    /**  @var \Voldemort\PutRequest */
-    public $put = null;
-    
-    /**  @var \Voldemort\DeleteRequest */
-    public $delete = null;
-    
-    /**  @var int */
-    public $requestRouteType = null;
-    
-
-    /** @var \Closure[] */
-    protected static $__extensions = array();
-
-    public static function descriptor()
+    class VoldemortRequest extends \DrSlump\Protobuf\Message
     {
-      $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.VoldemortRequest');
 
-      // REQUIRED ENUM type = 1
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 1;
-      $f->name      = "type";
-      $f->type      = \DrSlump\Protobuf::TYPE_ENUM;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $f->reference = '\Voldemort\RequestType';
-      $descriptor->addField($f);
+        /**  @var int - \Voldemort\RequestType */
+        public $type = null;
 
-      // REQUIRED BOOL should_route = 2
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 2;
-      $f->name      = "should_route";
-      $f->type      = \DrSlump\Protobuf::TYPE_BOOL;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $f->default   = false;
-      $descriptor->addField($f);
+        /**  @var boolean */
+        public $should_route = true;
 
-      // REQUIRED STRING store = 3
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 3;
-      $f->name      = "store";
-      $f->type      = \DrSlump\Protobuf::TYPE_STRING;
-      $f->rule      = \DrSlump\Protobuf::RULE_REQUIRED;
-      $descriptor->addField($f);
+        /**  @var string */
+        public $store = null;
 
-      // OPTIONAL MESSAGE get = 4
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 4;
-      $f->name      = "get";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\GetRequest';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\GetRequest */
+        public $get = null;
 
-      // OPTIONAL MESSAGE getAll = 5
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 5;
-      $f->name      = "getAll";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\GetAllRequest';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\GetAllRequest */
+        public $getAll = null;
 
-      // OPTIONAL MESSAGE put = 6
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 6;
-      $f->name      = "put";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\PutRequest';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\PutRequest */
+        public $put = null;
 
-      // OPTIONAL MESSAGE delete = 7
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 7;
-      $f->name      = "delete";
-      $f->type      = \DrSlump\Protobuf::TYPE_MESSAGE;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $f->reference = '\Voldemort\DeleteRequest';
-      $descriptor->addField($f);
+        /**  @var \Voldemort\DeleteRequest */
+        public $delete = null;
 
-      // OPTIONAL INT32 requestRouteType = 8
-      $f = new \DrSlump\Protobuf\Field();
-      $f->number    = 8;
-      $f->name      = "requestRouteType";
-      $f->type      = \DrSlump\Protobuf::TYPE_INT32;
-      $f->rule      = \DrSlump\Protobuf::RULE_OPTIONAL;
-      $descriptor->addField($f);
+        /**  @var int */
+        public $requestRouteType = null;
 
-      foreach (self::$__extensions as $cb) {
-        $descriptor->addField($cb(), true);
-      }
 
-      return $descriptor;
-    }
+        /** @var \Closure[] */
+        protected static $__extensions = array();
 
-    /**
-     * Check if <type> has a value
-     *
-     * @return boolean
-     */
-    public function hasType(){
-      return $this->_has(1);
+        public static function descriptor()
+        {
+            $descriptor = new \DrSlump\Protobuf\Descriptor(__CLASS__, 'Voldemort.VoldemortRequest');
+
+            // REQUIRED ENUM type = 1
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 1;
+            $f->name = "type";
+            $f->type = \DrSlump\Protobuf::TYPE_ENUM;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $f->reference = '\Voldemort\RequestType';
+            $descriptor->addField($f);
+
+            // REQUIRED BOOL should_route = 2
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 2;
+            $f->name = "should_route";
+            $f->type = \DrSlump\Protobuf::TYPE_BOOL;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $f->default = false;
+            $descriptor->addField($f);
+
+            // REQUIRED STRING store = 3
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 3;
+            $f->name = "store";
+            $f->type = \DrSlump\Protobuf::TYPE_STRING;
+            $f->rule = \DrSlump\Protobuf::RULE_REQUIRED;
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE get = 4
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 4;
+            $f->name = "get";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\GetRequest';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE getAll = 5
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 5;
+            $f->name = "getAll";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\GetAllRequest';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE put = 6
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 6;
+            $f->name = "put";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\PutRequest';
+            $descriptor->addField($f);
+
+            // OPTIONAL MESSAGE delete = 7
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 7;
+            $f->name = "delete";
+            $f->type = \DrSlump\Protobuf::TYPE_MESSAGE;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $f->reference = '\Voldemort\DeleteRequest';
+            $descriptor->addField($f);
+
+            // OPTIONAL INT32 requestRouteType = 8
+            $f = new \DrSlump\Protobuf\Field();
+            $f->number = 8;
+            $f->name = "requestRouteType";
+            $f->type = \DrSlump\Protobuf::TYPE_INT32;
+            $f->rule = \DrSlump\Protobuf::RULE_OPTIONAL;
+            $descriptor->addField($f);
+
+            foreach (self::$__extensions as $cb) {
+                $descriptor->addField($cb(), true);
+            }
+
+            return $descriptor;
+        }
+
+        /**
+         * Check if <type> has a value
+         *
+         * @return boolean
+         */
+        public function hasType()
+        {
+            return $this->_has(1);
+        }
+
+        /**
+         * Clear <type> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearType()
+        {
+            return $this->_clear(1);
+        }
+
+        /**
+         * Get <type> value
+         *
+         * @return int - \Voldemort\RequestType
+         */
+        public function getType()
+        {
+            return $this->_get(1);
+        }
+
+        /**
+         * Set <type> value
+         *
+         * @param int - \Voldemort\RequestType $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setType($value)
+        {
+            return $this->_set(1, $value);
+        }
+
+        /**
+         * Check if <should_route> has a value
+         *
+         * @return boolean
+         */
+        public function hasShouldRoute()
+        {
+            return $this->_has(2);
+        }
+
+        /**
+         * Clear <should_route> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearShouldRoute()
+        {
+            return $this->_clear(2);
+        }
+
+        /**
+         * Get <should_route> value
+         *
+         * @return boolean
+         */
+        public function getShouldRoute()
+        {
+            return $this->_get(2);
+        }
+
+        /**
+         * Set <should_route> value
+         *
+         * @param boolean $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setShouldRoute($value)
+        {
+            return $this->_set(2, $value);
+        }
+
+        /**
+         * Check if <store> has a value
+         *
+         * @return boolean
+         */
+        public function hasStore()
+        {
+            return $this->_has(3);
+        }
+
+        /**
+         * Clear <store> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearStore()
+        {
+            return $this->_clear(3);
+        }
+
+        /**
+         * Get <store> value
+         *
+         * @return string
+         */
+        public function getStore()
+        {
+            return $this->_get(3);
+        }
+
+        /**
+         * Set <store> value
+         *
+         * @param string $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setStore($value)
+        {
+            return $this->_set(3, $value);
+        }
+
+        /**
+         * Check if <get> has a value
+         *
+         * @return boolean
+         */
+        public function hasGet()
+        {
+            return $this->_has(4);
+        }
+
+        /**
+         * Clear <get> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearGet()
+        {
+            return $this->_clear(4);
+        }
+
+        /**
+         * Get <get> value
+         *
+         * @return \Voldemort\GetRequest
+         */
+        public function getGet()
+        {
+            return $this->_get(4);
+        }
+
+        /**
+         * Set <get> value
+         *
+         * @param \Voldemort\GetRequest $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setGet(\Voldemort\GetRequest $value)
+        {
+            return $this->_set(4, $value);
+        }
+
+        /**
+         * Check if <getAll> has a value
+         *
+         * @return boolean
+         */
+        public function hasGetAll()
+        {
+            return $this->_has(5);
+        }
+
+        /**
+         * Clear <getAll> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearGetAll()
+        {
+            return $this->_clear(5);
+        }
+
+        /**
+         * Get <getAll> value
+         *
+         * @return \Voldemort\GetAllRequest
+         */
+        public function getGetAll()
+        {
+            return $this->_get(5);
+        }
+
+        /**
+         * Set <getAll> value
+         *
+         * @param \Voldemort\GetAllRequest $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setGetAll(\Voldemort\GetAllRequest $value)
+        {
+            return $this->_set(5, $value);
+        }
+
+        /**
+         * Check if <put> has a value
+         *
+         * @return boolean
+         */
+        public function hasPut()
+        {
+            return $this->_has(6);
+        }
+
+        /**
+         * Clear <put> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearPut()
+        {
+            return $this->_clear(6);
+        }
+
+        /**
+         * Get <put> value
+         *
+         * @return \Voldemort\PutRequest
+         */
+        public function getPut()
+        {
+            return $this->_get(6);
+        }
+
+        /**
+         * Set <put> value
+         *
+         * @param \Voldemort\PutRequest $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setPut(\Voldemort\PutRequest $value)
+        {
+            return $this->_set(6, $value);
+        }
+
+        /**
+         * Check if <delete> has a value
+         *
+         * @return boolean
+         */
+        public function hasDelete()
+        {
+            return $this->_has(7);
+        }
+
+        /**
+         * Clear <delete> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearDelete()
+        {
+            return $this->_clear(7);
+        }
+
+        /**
+         * Get <delete> value
+         *
+         * @return \Voldemort\DeleteRequest
+         */
+        public function getDelete()
+        {
+            return $this->_get(7);
+        }
+
+        /**
+         * Set <delete> value
+         *
+         * @param \Voldemort\DeleteRequest $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setDelete(\Voldemort\DeleteRequest $value)
+        {
+            return $this->_set(7, $value);
+        }
+
+        /**
+         * Check if <requestRouteType> has a value
+         *
+         * @return boolean
+         */
+        public function hasRequestRouteType()
+        {
+            return $this->_has(8);
+        }
+
+        /**
+         * Clear <requestRouteType> value
+         *
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function clearRequestRouteType()
+        {
+            return $this->_clear(8);
+        }
+
+        /**
+         * Get <requestRouteType> value
+         *
+         * @return int
+         */
+        public function getRequestRouteType()
+        {
+            return $this->_get(8);
+        }
+
+        /**
+         * Set <requestRouteType> value
+         *
+         * @param int $value
+         * @return \Voldemort\VoldemortRequest
+         */
+        public function setRequestRouteType($value)
+        {
+            return $this->_set(8, $value);
+        }
     }
-    
-    /**
-     * Clear <type> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearType(){
-      return $this->_clear(1);
-    }
-    
-    /**
-     * Get <type> value
-     *
-     * @return int - \Voldemort\RequestType
-     */
-    public function getType(){
-      return $this->_get(1);
-    }
-    
-    /**
-     * Set <type> value
-     *
-     * @param int - \Voldemort\RequestType $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setType( $value){
-      return $this->_set(1, $value);
-    }
-    
-    /**
-     * Check if <should_route> has a value
-     *
-     * @return boolean
-     */
-    public function hasShouldRoute(){
-      return $this->_has(2);
-    }
-    
-    /**
-     * Clear <should_route> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearShouldRoute(){
-      return $this->_clear(2);
-    }
-    
-    /**
-     * Get <should_route> value
-     *
-     * @return boolean
-     */
-    public function getShouldRoute(){
-      return $this->_get(2);
-    }
-    
-    /**
-     * Set <should_route> value
-     *
-     * @param boolean $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setShouldRoute( $value){
-      return $this->_set(2, $value);
-    }
-    
-    /**
-     * Check if <store> has a value
-     *
-     * @return boolean
-     */
-    public function hasStore(){
-      return $this->_has(3);
-    }
-    
-    /**
-     * Clear <store> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearStore(){
-      return $this->_clear(3);
-    }
-    
-    /**
-     * Get <store> value
-     *
-     * @return string
-     */
-    public function getStore(){
-      return $this->_get(3);
-    }
-    
-    /**
-     * Set <store> value
-     *
-     * @param string $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setStore( $value){
-      return $this->_set(3, $value);
-    }
-    
-    /**
-     * Check if <get> has a value
-     *
-     * @return boolean
-     */
-    public function hasGet(){
-      return $this->_has(4);
-    }
-    
-    /**
-     * Clear <get> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearGet(){
-      return $this->_clear(4);
-    }
-    
-    /**
-     * Get <get> value
-     *
-     * @return \Voldemort\GetRequest
-     */
-    public function getGet(){
-      return $this->_get(4);
-    }
-    
-    /**
-     * Set <get> value
-     *
-     * @param \Voldemort\GetRequest $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setGet(\Voldemort\GetRequest $value){
-      return $this->_set(4, $value);
-    }
-    
-    /**
-     * Check if <getAll> has a value
-     *
-     * @return boolean
-     */
-    public function hasGetAll(){
-      return $this->_has(5);
-    }
-    
-    /**
-     * Clear <getAll> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearGetAll(){
-      return $this->_clear(5);
-    }
-    
-    /**
-     * Get <getAll> value
-     *
-     * @return \Voldemort\GetAllRequest
-     */
-    public function getGetAll(){
-      return $this->_get(5);
-    }
-    
-    /**
-     * Set <getAll> value
-     *
-     * @param \Voldemort\GetAllRequest $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setGetAll(\Voldemort\GetAllRequest $value){
-      return $this->_set(5, $value);
-    }
-    
-    /**
-     * Check if <put> has a value
-     *
-     * @return boolean
-     */
-    public function hasPut(){
-      return $this->_has(6);
-    }
-    
-    /**
-     * Clear <put> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearPut(){
-      return $this->_clear(6);
-    }
-    
-    /**
-     * Get <put> value
-     *
-     * @return \Voldemort\PutRequest
-     */
-    public function getPut(){
-      return $this->_get(6);
-    }
-    
-    /**
-     * Set <put> value
-     *
-     * @param \Voldemort\PutRequest $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setPut(\Voldemort\PutRequest $value){
-      return $this->_set(6, $value);
-    }
-    
-    /**
-     * Check if <delete> has a value
-     *
-     * @return boolean
-     */
-    public function hasDelete(){
-      return $this->_has(7);
-    }
-    
-    /**
-     * Clear <delete> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearDelete(){
-      return $this->_clear(7);
-    }
-    
-    /**
-     * Get <delete> value
-     *
-     * @return \Voldemort\DeleteRequest
-     */
-    public function getDelete(){
-      return $this->_get(7);
-    }
-    
-    /**
-     * Set <delete> value
-     *
-     * @param \Voldemort\DeleteRequest $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setDelete(\Voldemort\DeleteRequest $value){
-      return $this->_set(7, $value);
-    }
-    
-    /**
-     * Check if <requestRouteType> has a value
-     *
-     * @return boolean
-     */
-    public function hasRequestRouteType(){
-      return $this->_has(8);
-    }
-    
-    /**
-     * Clear <requestRouteType> value
-     *
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function clearRequestRouteType(){
-      return $this->_clear(8);
-    }
-    
-    /**
-     * Get <requestRouteType> value
-     *
-     * @return int
-     */
-    public function getRequestRouteType(){
-      return $this->_get(8);
-    }
-    
-    /**
-     * Set <requestRouteType> value
-     *
-     * @param int $value
-     * @return \Voldemort\VoldemortRequest
-     */
-    public function setRequestRouteType( $value){
-      return $this->_set(8, $value);
-    }
-  }
 }
 

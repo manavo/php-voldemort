@@ -2,4 +2,6 @@
 
 namespace Voldemort;
 
-class Exception extends \Exception {}
+class Exception extends \Exception
+{
+}

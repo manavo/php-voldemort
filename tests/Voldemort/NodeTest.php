@@ -1,10 +1,12 @@
 <?php
 
-class NodeTest extends VoldemortTestCase {
+class NodeTest extends PHPUnit_Framework_TestCase
+{
 
-	public function testFromXml() {
+    public function testFromXml()
+    {
 
-		$xml = <<<EOQ
+        $xml = <<<EOQ
 <server>
     <id>0</id>
     <host>192.168.22.10</host>
@@ -16,11 +18,11 @@ class NodeTest extends VoldemortTestCase {
 EOQ;
 
 
-		$node = \Voldemort\Node::fromXml(simplexml_load_string($xml));
+        $node = \Voldemort\Node::fromXml(simplexml_load_string($xml));
 
-		$this->assertEquals('192.168.22.10', $node->getHost());
-		$this->assertEquals('6666', $node->getSocketPort());
+        $this->assertEquals('192.168.22.10', $node->getHost());
+        $this->assertEquals('6666', $node->getSocketPort());
 
-	}
+    }
 
 }

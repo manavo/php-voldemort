@@ -21,15 +21,11 @@ class Socket extends \Socket\Raw\Socket
         $chunkSize = 4096;
 
         while ($remaining > 0) {
-            error_log('Read ' . $remaining);
-
             if ($chunkSize > $remaining) {
                 $chunkSize = $remaining;
             }
 
-            error_log('PreRead');
             $tmp = @socket_read($this->getResource(), $chunkSize);
-            error_log('PostRead');
 
             if ($tmp === false) {
                 throw \Socket\Raw\Exception::createFromSocketResource($this->getResource());

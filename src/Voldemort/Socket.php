@@ -21,7 +21,23 @@ class Socket {
     }
 
     public function read($length) {
-        return fread($this->socket, $length);
+        $data = '';
+        $remaining = $length;
+        $chunkSize = 4096;
+
+        while ($remaining > 0) {
+            if ($chunkSize > $remaining) {
+                $chunkSize = $remaining;
+            }
+
+            $tmp = fread($this->socket, $chunkSize);
+
+            $remaining -= strlen($tmp);
+
+            $data .= $tmp;
+        }
+
+        return $data;
     }
 
     public function close() {

@@ -5,9 +5,6 @@ require_once('voldemort-client.php');
 class Voldemort
 {
 
-    /**
-     * @var \Socket\Raw\Factory $socketFactory
-     */
     private $connection = null;
 
     private $storeName = null;

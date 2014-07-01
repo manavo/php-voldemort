@@ -2,35 +2,38 @@
 
 namespace Voldemort;
 
-class Socket {
+class Socket extends \Socket\Raw\Socket
+{
 
-    private $socket;
-
-    public function __construct($address) {
-        $socket = stream_socket_client($address, $errno, $errstr);
-
-        if (!$socket) {
-            throw new Exception('Could not create socket: '.$errstr);
-        }
-
-        $this->socket = $socket;
-    }
-
-    public function write($data) {
-        fwrite($this->socket, $data, strlen($data));
-    }
-
-    public function read($length) {
+    /**
+     * read up to $length bytes from connect()ed / accept()ed socket
+     *
+     * @param int $length maximum length to read
+     * @throws \Socket\Raw\Exception
+     * @return string
+     * @see self::recv() if you need to pass flags
+     * @uses socket_read()
+     */
+    public function read($length)
+    {
         $data = '';
         $remaining = $length;
         $chunkSize = 4096;
 
         while ($remaining > 0) {
+            error_log('Read ' . $remaining);
+
             if ($chunkSize > $remaining) {
                 $chunkSize = $remaining;
             }
 
-            $tmp = fread($this->socket, $chunkSize);
+            error_log('PreRead');
+            $tmp = @socket_read($this->getResource(), $chunkSize);
+            error_log('PostRead');
+
+            if ($tmp === false) {
+                throw \Socket\Raw\Exception::createFromSocketResource($this->getResource());
+            }
 
             $remaining -= strlen($tmp);
 
@@ -38,10 +41,6 @@ class Socket {
         }
 
         return $data;
-    }
-
-    public function close() {
-        fclose($this->socket);
     }
 
 }

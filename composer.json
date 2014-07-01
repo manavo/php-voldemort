@@ -13,6 +13,7 @@
 		}
 	],
 	"require": {
+		"clue/socket-raw": "1.*",
 		"drslump/Protobuf-PHP": "*@dev"
 	},
 	"require-dev": {

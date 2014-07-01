@@ -5,14 +5,14 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	public function testMakeThrowsExceptionIfResponseNotOk() {
 		$this->setExpectedException('\Voldemort\Exception');
 
-        $mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(
+        $mockSocket = $this->getMockBuilder('\Voldemort\Socket')->setMethods(
             array('read', 'write', 'close')
         )->disableOriginalConstructor()->getMock();
         $mockSocket->expects($this->once())->method('write')->with('pb0');
 		$mockSocket->expects($this->once())->method('read')->will($this->returnValue('no'));
 		$mockSocket->expects($this->once())->method('close');
 
-		$mockFactory = $this->getMock('\Socket\Raw\Factory', array('createClient'));
+		$mockFactory = $this->getMock('\Voldemort\SocketFactory', array('createClient'));
 		$mockFactory->expects($this->once())->method('createClient')->will($this->returnValue($mockSocket));
 
 		$connection = new \Voldemort\Connection($mockFactory);
@@ -21,11 +21,11 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testMakeIfResponseOk() {
-		$mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
+		$mockSocket = $this->getMockBuilder('\Voldemort\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
 		$mockSocket->expects($this->once())->method('write')->with('pb0');
 		$mockSocket->expects($this->once())->method('read')->will($this->returnValue('ok'));
 
-		$mockFactory = $this->getMock('\Socket\Raw\Factory', array('createClient'));
+		$mockFactory = $this->getMock('\Voldemort\SocketFactory', array('createClient'));
 		$mockFactory->expects($this->once())->method('createClient')->will($this->returnValue($mockSocket));
 
 		$connection = new \Voldemort\Connection($mockFactory);
@@ -34,7 +34,7 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetFromStore() {
-		$mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
+		$mockSocket = $this->getMockBuilder('\Voldemort\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
 		$mockSocket->expects($this->once())->method('write');
 		$mockSocket->expects($this->at(0))->method('read')->will($this->returnValue(pack('N*', 10)));
 		$mockSocket->expects($this->at(1))->method('read')->will($this->returnValue('raw data'));
@@ -44,7 +44,7 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testPutRequest() {
-		$mockSocket = $this->getMockBuilder('\Socket\Raw\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
+		$mockSocket = $this->getMockBuilder('\Voldemort\Socket')->setMethods(array('read', 'write'))->disableOriginalConstructor()->getMock();
 		$mockSocket->expects($this->once())->method('write');
 		$mockSocket->expects($this->once())->method('read')->will($this->returnValue(pack('N*', 0)));
 

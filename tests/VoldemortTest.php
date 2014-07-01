@@ -78,7 +78,7 @@ class VoldemortTest extends PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()->getMock();
 
         $connection->expects($this->once())->method('make')->will(
-            $this->returnValue($this->getMockBuilder('\Socket\Raw\Socket')->disableOriginalConstructor()->getMock())
+            $this->returnValue($this->getMockBuilder('\Voldemort\Socket')->disableOriginalConstructor()->getMock())
         );
         $connection->expects($this->once())->method('getFromStore')->will($this->returnValue(null));
 
@@ -142,7 +142,7 @@ EOQ;
         )->disableOriginalConstructor()->getMock();
 
         $connection->expects($this->once())->method('make')->will(
-            $this->returnValue($this->getMockBuilder('\Socket\Raw\Socket')->disableOriginalConstructor()->getMock())
+            $this->returnValue($this->getMockBuilder('\Voldemort\Socket')->disableOriginalConstructor()->getMock())
         );
         $connection->expects($this->at(0))->method('getFromStore')->will($this->throwException(new Exception('hello')));
         $connection->expects($this->at(1))->method('getFromStore')->will($this->returnValue(null));

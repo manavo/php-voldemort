@@ -183,7 +183,7 @@ class Voldemort
     }
 
     /**
-     * @param \Socket\Raw\Socket|null $socket
+     * @param \Voldemort\Socket|null $socket
      */
     private function closeConnection($socket = null)
     {
@@ -208,7 +208,7 @@ class Voldemort
      */
     public static function create($bootstrapUrls, $storeName, $validateStore = true)
     {
-        $connection = new \Voldemort\Connection(new \Socket\Raw\Factory());
+        $connection = new \Voldemort\Connection(new \Voldemort\SocketFactory());
 
         $voldemort = new \Voldemort($connection, $storeName);
 

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "821246ac07167bf6b2b940d4a592b0a3",
+    "hash": "1f6774797906efa55c1175056a266286",
     "packages": [
         {
             "name": "DrSlump/Protobuf-PHP",
@@ -60,58 +60,6 @@
                 "issues": "https://github.com/drslump/Protobuf-PHP/issues"
             },
             "time": "2013-12-16 18:39:54"
-        },
-        {
-            "name": "clue/socket-raw",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/clue/socket-raw.git",
-                "reference": "3224fac098e7b49a6de07355e8622a4373dd6a4d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-raw/zipball/3224fac098e7b49a6de07355e8622a4373dd6a4d",
-                "reference": "3224fac098e7b49a6de07355e8622a4373dd6a4d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-sockets": "*",
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Socket\\Raw\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@lueck.tv"
-                }
-            ],
-            "description": "Simple and lightweight OOP wrapper for PHP's low level sockets extension (ext-sockets)",
-            "homepage": "https://github.com/clue/socket-raw",
-            "keywords": [
-                "Socket",
-                "client",
-                "datagram",
-                "dgram",
-                "icmp",
-                "ipv6",
-                "server",
-                "stream",
-                "tcp",
-                "udg",
-                "udp",
-                "unix"
-            ],
-            "time": "2014-05-10 14:11:21"
         }
     ],
     "packages-dev": [

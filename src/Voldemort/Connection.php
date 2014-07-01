@@ -2,15 +2,13 @@
 
 namespace Voldemort;
 
-use Socket\Raw\Factory;
-
 class Connection
 {
 
     private $socketFactory;
 
     /**
-     * @param Factory $socketFactory
+     * @param SocketFactory $socketFactory
      */
     function __construct($socketFactory)
     {
@@ -20,7 +18,7 @@ class Connection
     /**
      * @param string $host
      * @param int $port
-     * @return \Socket\Raw\Socket
+     * @return \Voldemort\Socket
      * @throws Exception
      */
     public function make($host, $port)
@@ -33,6 +31,7 @@ class Connection
          * Protocol negotiation to be Protocol Buffers
          */
         $protocol = 'pb0';
+
         $socket->write($protocol);
         if ($socket->read(2) !== 'ok') {
             $socket->close();
@@ -44,7 +43,7 @@ class Connection
     }
 
     /**
-     * @param \Socket\Raw\Socket $socket
+     * @param \Voldemort\Socket $socket
      * @param string $storeName
      * @param string $key
      * @param boolean $shouldRoute
@@ -61,7 +60,7 @@ class Connection
     }
 
     /**
-     * @param \Socket\Raw\Socket $socket
+     * @param \Voldemort\Socket $socket
      * @param string $storeName
      * @param \DrSlump\Protobuf\Message $message
      * @param int $type
@@ -96,7 +95,7 @@ class Connection
     }
 
     /**
-     * @param \Socket\Raw\Socket $socket
+     * @param \Voldemort\Socket $socket
      * @param string $input
      * @return string
      */

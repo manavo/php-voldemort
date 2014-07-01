@@ -123,7 +123,7 @@ class Cluster
     }
 
     /**
-     * @return \Socket\Raw\Socket
+     * @return \Voldemort\Socket
      * @throws Exception
      */
     private function getSocket()
